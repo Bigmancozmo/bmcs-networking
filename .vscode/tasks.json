@@ -1,0 +1,19 @@
+{
+	"version": "2.0.0",
+	"tasks": [
+		{
+			"type": "npm",
+			"script": "lint",
+			"problemMatcher": [],
+			"label": "npm: lint",
+			"detail": "eslint . --ext .ts,.tsx,.js,.jsx"
+		},
+		{
+			"type": "npm",
+			"script": "lint:fix",
+			"problemMatcher": [],
+			"label": "npm: lint:fix",
+			"detail": "eslint . --ext .ts,.tsx,.js,.jsx --fix"
+		}
+	]
+}
