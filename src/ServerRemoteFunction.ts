@@ -4,7 +4,7 @@ export class ServerRemoteFunction<T extends (...args: never[]) => NonNullable<un
 	private instance: RemoteFunction;
 
 	constructor(name: string) {
-		if (RunService.IsServer()) {
+		if (RunService.IsServer() || !RunService.IsRunning()) {
 			this.instance = new Instance("RemoteFunction");
 			this.instance.Name = name + "_ServerRemoteFunction";
 			this.instance.Parent = getRemoteFolder();
