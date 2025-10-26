@@ -4,12 +4,16 @@ export class ServerRemoteFunction<T extends (...args: never[]) => NonNullable<un
 	private instance: RemoteFunction;
 
 	constructor(name: string) {
+		const folder = getRemoteFolder();
+		const targetName = name + "_ServerRemoteFunction";
+
 		if (RunService.IsServer() || !RunService.IsRunning()) {
+			folder.FindFirstChild(targetName)?.Destroy();
 			this.instance = new Instance("RemoteFunction");
-			this.instance.Name = name + "_ServerRemoteFunction";
-			this.instance.Parent = getRemoteFolder();
+			this.instance.Name = targetName;
+			this.instance.Parent = folder;
 		} else {
-			this.instance = getRemoteFolder().WaitForChild(name + "_ServerRemoteFunction") as RemoteFunction;
+			this.instance = folder.WaitForChild(targetName) as RemoteFunction;
 		}
 	}
 

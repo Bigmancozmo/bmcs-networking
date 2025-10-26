@@ -7,12 +7,16 @@ export class RemoteEventDefinition<T extends Array<unknown>> {
 	OnServerEvent: RBXScriptSignal<(plr: Player, ...args: T) => unknown>;
 
 	constructor(name: string) {
+		const folder = getRemoteFolder();
+		const targetName = name + "_RemoteEvent";
+
 		if (RunService.IsServer() || !RunService.IsRunning()) {
+			folder.FindFirstChild(targetName)?.Destroy();
 			this.instance = new Instance("RemoteEvent");
-			this.instance.Name = name + "_RemoteEvent";
-			this.instance.Parent = getRemoteFolder();
+			this.instance.Name = targetName;
+			this.instance.Parent = folder;
 		} else {
-			this.instance = getRemoteFolder().WaitForChild(name + "_RemoteEvent") as RemoteEvent;
+			this.instance = folder.WaitForChild(targetName) as RemoteEvent;
 		}
 
 		this.OnClientEvent = this.instance.OnClientEvent;
