@@ -11,10 +11,14 @@ export class RemoteEventDefinition<T extends Array<unknown>> {
 		const targetName = name + "_RemoteEvent";
 
 		if (RunService.IsServer() || !RunService.IsRunning()) {
-			folder.FindFirstChild(targetName)?.Destroy();
-			this.instance = new Instance("RemoteEvent");
-			this.instance.Name = targetName;
-			this.instance.Parent = folder;
+			const existing = folder.FindFirstChild(targetName);
+			if (existing && existing.IsA("RemoteEvent")) {
+				this.instance = existing;
+			} else {
+				this.instance = new Instance("RemoteEvent");
+				this.instance.Name = targetName;
+				this.instance.Parent = folder;
+			}
 		} else {
 			this.instance = folder.WaitForChild(targetName) as RemoteEvent;
 		}

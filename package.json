@@ -1,6 +1,6 @@
 {
   "name": "@rbxts/bmcs-networking",
-  "version": "1.0.1-patch2",
+  "version": "1.0.1-patch3",
   "description": "",
   "main": "out/init.lua",
   "scripts": {
