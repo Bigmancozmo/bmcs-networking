@@ -7,7 +7,7 @@ export class RemoteEventDefinition<T extends Array<unknown>> {
 	OnServerEvent: RBXScriptSignal<(plr: Player, ...args: T) => unknown>;
 
 	constructor(name: string) {
-		if (RunService.IsServer()) {
+		if (RunService.IsServer() || !RunService.IsRunning()) {
 			this.instance = new Instance("RemoteEvent");
 			this.instance.Name = name + "_RemoteEvent";
 			this.instance.Parent = getRemoteFolder();
